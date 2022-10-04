@@ -1,0 +1,32 @@
+{
+  "name": "bjs-showroom",
+  "version": "1.0.0",
+  "description": "Researches in WebVR possibilities",
+  "main": "dist",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --mode=production --progress",
+    "startdev": "export NODE_OPTIONS=--max-old-space-size=16384 && ./node_modules/.bin/webpack serve --hot"
+  },
+  "author": "Simon Trushkin PRIb-191",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/lodash": "^4.14.178",
+    "@types/rx": "^4.1.2",
+    "ts-loader": "^9.2.6",
+    "type-fest": "^2.8.0",
+    "typescript": "^4.5.2",
+
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.7.2",
+    "webpack-dev-server": "^3.11.3",
+    "copy-webpack-plugin": "^9.0.1",
+    "fork-ts-checker-webpack-plugin": "^6.2.12",
+    "html-webpack-harddisk-plugin": "^2.0.0",
+    "html-webpack-plugin": "^5.3.2"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "rxjs": "^7.4.0"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "noImplicitAny": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "strictNullChecks": true,
+    "target": "es6",
+    "strict": false,
+    "allowJs": true,
+    "baseUrl": "./src",
+    "moduleResolution": "node",
+    "jsx": "preserve",
+    "paths": {
+      "@classes/*":["classes/*"],
+    },
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "es5",
+      "es6",
+      "scripthost",
+      "es2015.promise",
+      "es2015.collection",
+      "es2015.iterable",
+      "es2017.object"
+    ],
+    "typeRoots": [
+      "./node_modules/@types",
+    ],
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "tests/**/*.ts",
+    "tests/**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
