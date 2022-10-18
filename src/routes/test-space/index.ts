@@ -1,1 +1,3 @@
-console.log('HELLO WORLD');
+import '@classes/App/App';
+// @ts-ignore
+window.App = App;
