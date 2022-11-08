@@ -10,7 +10,7 @@ export abstract class Part3D implements IPart3D{
     private _canvas: HTMLCanvasElement;
     private _engine: Engine;
 
-    protected constructor(partUID:keyof IUniqueParts) {
+    constructor(partUID:keyof IUniqueParts) {
         this._partUID = partUID;
     }
 
