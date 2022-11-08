@@ -3,3 +3,5 @@ import '@classes/App/AppParts/PART_REGISTRY';
 
 //@ts-ignore
 window.App = App;
+
+App.CreatePartByUID('TestPart_1');

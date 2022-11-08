@@ -1,6 +1,7 @@
 import {IUniqueParts, REGISTRY_PART} from "@classes/App/AppTID";
 import {IPart3D} from "@classes/Part/PartTID";
 import {Part3D} from "@classes/Part/Part3D";
+import {TEST_PART_1_BUILD_CFG} from "@classes/App/AppParts/TestPart_1/Cfg";
 
 const NAME = 'TestPart_1';
 declare module '@classes/App/AppTID' {
@@ -23,9 +24,9 @@ export class TestPart_1 extends Part3D implements IPart3D{
         console.log('ENABLE_TEST_PT_1');
     }
 
-    init(...arg: any): Promise<void> {
+    async init(){
         console.log('INIT_TEST_PT_1');
-        return Promise.resolve(undefined);
+        await super.init(TEST_PART_1_BUILD_CFG);
     }
 
     get partUID(): keyof IUniqueParts {
