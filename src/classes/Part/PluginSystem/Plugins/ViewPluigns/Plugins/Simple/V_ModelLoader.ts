@@ -1,6 +1,5 @@
 import {REGISTRY_VIEW_PLUGIN} from "@classes/Part/PluginSystem/Plugins/Builders/View/ViewPluginsBuilder";
 import {TViewPluginCfg} from "@classes/Part/PluginSystem/Plugins/ViewPluigns/IViewPlugin";
-import {GLTFLoaderAnimationStartMode} from "@babylonjs/loaders";
 import {AbstractViewPlugin} from "@classes/Part/PluginSystem/Plugins/ViewPluigns/AbstractViewPlugin";
 
 const NAME = 'V_ModelLoader'
@@ -20,7 +19,7 @@ const TV_V_ModelLoaderCfg = <
 >{
     url:'',
     useRHS:true,
-    animationStartMode: GLTFLoaderAnimationStartMode.ALL
+    animationStartMode: 0
 }
 
 @REGISTRY_VIEW_PLUGIN(NAME,TV_V_ModelLoaderCfg)
