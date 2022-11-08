@@ -8,7 +8,6 @@ export abstract class App {
     private static PartStore:PromiseMap<string,IPart3D> = new PromiseMap()
 
     public static CreatePartByUID(uid:keyof IUniqueParts){
-        console.log(PartContainer);
         PartContainer.getViaPromise(uid).then( async (e)=>{
             let part = new e;
             await part.init();

@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "lodash": "^4.17.21",
+    "@babylonjs/core": "^5.31.2",
     "rxjs": "^7.4.0"
   }
 }
