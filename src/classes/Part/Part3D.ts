@@ -1,8 +1,10 @@
 import {IPart3D} from "@classes/Part/PartTID";
 import {Engine, Scene} from "@babylonjs/core";
 import {IUniqueParts} from "@classes/App/AppTID";
-import "@classes/Part/PluginSystem/Plugins/ViewPlugins/PluginsRegistryList"
+import "@classes/Part/PluginSystem/Plugins/ViewPluigns/PluginsRegistryList";
 import {SceneCreationTools} from "@classes/Support/SceneCreationTools";
+import {TPluginBuilderInput} from "@classes/Part/PluginSystem/Plugins/Builders/Base/IPluginBuilder";
+import {ViewPluginBuilder} from "@classes/Part/PluginSystem/Plugins/Builders/View/ViewPluginsBuilder";
 
 export abstract class Part3D implements IPart3D{
     private _partUID: keyof IUniqueParts;
@@ -14,12 +16,15 @@ export abstract class Part3D implements IPart3D{
         this._partUID = partUID;
     }
 
-    async init(){
+    async init(pluginsConfig:TPluginBuilderInput[]){
         this._scene = SceneCreationTools.PrepareSceneView(this._partUID);
         this._scene.useRightHandedSystem = true;
         this._engine = this._scene.getEngine();
         this._canvas = this._scene.getEngine().getRenderingCanvas()!;
         window.document.body.style.overflow = 'hidden';
+        let pluginBuilder = new ViewPluginBuilder();
+        pluginBuilder.init(this._scene);
+        await pluginBuilder.build(pluginsConfig);
     }
 
     disable():void{
