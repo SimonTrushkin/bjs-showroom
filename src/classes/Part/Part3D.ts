@@ -2,7 +2,7 @@ import {IPart3D} from "@classes/Part/PartTID";
 import {Engine, Scene} from "@babylonjs/core";
 import {IUniqueParts} from "@classes/App/AppTID";
 import "@classes/Part/PluginSystem/Plugins/ViewPluigns/PluginsRegistryList";
-import {SceneCreationTools} from "@classes/Support/SceneCreationTools";
+import {SceneCreationTools} from "@classes/Support/3D/SceneCreationTools";
 import {TPluginBuilderInput} from "@classes/Part/PluginSystem/Plugins/Builders/Base/IPluginBuilder";
 import {ViewPluginBuilder} from "@classes/Part/PluginSystem/Plugins/Builders/View/ViewPluginsBuilder";
 
@@ -33,7 +33,7 @@ export abstract class Part3D implements IPart3D{
     }
 
     enable(): void {
-        // this._canvas.style.display = 'block';
+        this._canvas.style.display = 'block';
         this._scene.getEngine().runRenderLoop(()=>{
             if(this._scene.activeCamera) this._scene.render();
         });

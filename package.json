@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --mode=production --progress",
-    "startdev": "export NODE_OPTIONS=--max-old-space-size=16384 && ./node_modules/.bin/webpack serve --hot"
+    "startdev": "npx --max-old-space-size=16384 webpack serve --mode=development"
   },
   "author": "Simon Trushkin PRIb-191",
   "license": "ISC",
@@ -27,7 +27,8 @@
   },
   "dependencies": {
     "lodash": "^4.17.21",
-    "@babylonjs/core": "^5.31.2",
+    "@babylonjs/core": "^5.33.0",
+    "@babylonjs/loaders": "^5.33.0",
     "rxjs": "^7.4.0"
   }
 }

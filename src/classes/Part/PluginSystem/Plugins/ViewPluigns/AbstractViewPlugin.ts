@@ -75,7 +75,7 @@ export abstract class AbstractViewPlugin <buildCfg extends TViewPluginCfg = TVie
                     }
                 }
             }else{
-                if(targetObject[p as keyof T]!=undefined){
+                if(targetObject[p as keyof T]!==undefined){
                     targetObject[p as keyof T] = this._cfg[p as keyof buildCfg] as unknown as T[keyof T];
                 }
             }
