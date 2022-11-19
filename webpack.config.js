@@ -8,12 +8,22 @@ const commonPlugins = [
     new ForkTsCheckerWebpackPlugin(),
     new HtmlWebpackHarddiskPlugin(),
     new HtmlWebPackPlugin({
-        template:'./src/routes/test-space/index.html',
-        filename:'test-space/index.html',
+        template:'./src/routes/heart/index.html',
+        filename:'heart/index.html',
         publicPath:'/',
         minify:true,
         alwaysWriteToDisk: true,
-        chunks:['test-space'],
+        chunks:['heart'],
+        inject:true,
+        scriptLoading:'defer'
+    }),
+    new HtmlWebPackPlugin({
+        template:'./src/routes/lungs/index.html',
+        filename:'lungs/index.html',
+        publicPath:'/',
+        minify:true,
+        alwaysWriteToDisk: true,
+        chunks:['lungs'],
         inject:true,
         scriptLoading:'defer'
     })
@@ -30,9 +40,13 @@ const prodPlugins = [
 const devPlugins = [];
 const config = {
     entry: {
-        "test-space":{
-            import   :'./src/routes/test-space/index.ts',
-            filename :'test-space/js/index.js'
+        "heart":{
+            import   :'./src/routes/heart/index.ts',
+            filename :'heart/js/index.js'
+        },
+        "lungs":{
+            import   :'./src/routes/lungs/index.ts',
+            filename :'lungs/js/index.js'
         }
     },
     output: {   // выход
@@ -74,7 +88,7 @@ const config = {
         extensions: [ '.ts', '.js', '.tsx', '.jsx'],
         alias: {
             "@classes": path.resolve(__dirname, "src/classes"),
-            "@routes": path.resolve(__dirname, "src/routes")
+            "@routes": path.resolve(__dirname, "src/routes"),
         }
     }
 }

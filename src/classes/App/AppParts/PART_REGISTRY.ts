@@ -1,2 +1,2 @@
-import "@classes/App/AppParts/TestPart_1/HeartPart";
-import "@classes/App/AppParts/TestPart_2/TestPart_2";
+import "@classes/App/AppParts/HeartPart/HeartPart";
+import "@classes/App/AppParts/LungsPart/LungsPart";
