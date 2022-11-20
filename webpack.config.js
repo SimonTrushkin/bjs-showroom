@@ -26,6 +26,16 @@ const commonPlugins = [
         chunks:['lungs'],
         inject:true,
         scriptLoading:'defer'
+    }),
+    new HtmlWebPackPlugin({
+        template:'./src/routes/skeleton/index.html',
+        filename:'skeleton/index.html',
+        publicPath:'/',
+        minify:true,
+        alwaysWriteToDisk: true,
+        chunks:['skeleton'],
+        inject:true,
+        scriptLoading:'defer'
     })
 ]
 
@@ -47,6 +57,10 @@ const config = {
         "lungs":{
             import   :'./src/routes/lungs/index.ts',
             filename :'lungs/js/index.js'
+        },
+        "skeleton":{
+            import   :'./src/routes/skeleton/index.ts',
+            filename :'skeleton/js/index.js'
         }
     },
     output: {   // выход

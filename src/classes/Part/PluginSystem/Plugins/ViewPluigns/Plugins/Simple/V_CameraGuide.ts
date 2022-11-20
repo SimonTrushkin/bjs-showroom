@@ -3,6 +3,7 @@ import {TViewPluginCfg} from "@classes/Part/PluginSystem/Plugins/ViewPluigns/IVi
 import {AbstractViewPlugin} from "@classes/Part/PluginSystem/Plugins/ViewPluigns/AbstractViewPlugin";
 import {TargetCamera} from "@babylonjs/core";
 import {Vector3} from "@babylonjs/core/Maths/math.vector";
+import {values} from "lodash";
 
 const NAME = 'V_CameraGuide'
 
@@ -24,7 +25,7 @@ const TV_CameraGuideCfg = <
             [key:string]:[string,string]
         },
         interpolationSpeed: number,
-        buttons: {id: string,text:string}[],
+        buttons: {id: string,text:string,desc:string}[],
         buttonsContainerId: string
     }&TViewPluginCfg
 >{
@@ -42,8 +43,14 @@ export class V_CameraGuide extends AbstractViewPlugin<typeof TV_CameraGuideCfg>{
     private _activePosition :Vector3;
     private _activeTarget   : Vector3;
     private _buttons        : HTMLButtonElement[] = [];
+    private _descMap        : Map<string,HTMLDivElement> = new Map<string, HTMLDivElement>();
+    private _container: HTMLElement | null;
+    private _textContainer: HTMLElement | null;
 
     async build() {
+
+        this._container = document.getElementById("buttons-div");
+        this._textContainer = document.getElementById("text-div");
 
         this.setActivePoint(Object.keys(this._cfg.points)[0]);
         this.getNecessaries();
@@ -52,10 +59,14 @@ export class V_CameraGuide extends AbstractViewPlugin<typeof TV_CameraGuideCfg>{
         this.generateButtons(
             this._cfg.buttons
         );
+        this.generateDescs();
         this._buttons.forEach((bb)=>{
             bb.addEventListener('click',()=>{
-                console.log(bb.id);
                 this.setActivePoint(bb.id);
+                this._descMap.forEach((value)=>{
+                    value.style.opacity = '0';
+                })
+                if(this._descMap.get(bb.id)) this._descMap.get(bb.id)!.style.opacity = '1';
             })
         })
 
@@ -116,10 +127,9 @@ export class V_CameraGuide extends AbstractViewPlugin<typeof TV_CameraGuideCfg>{
     }
 
     private generateButtons(buttons:{id:string,text:string}[]):void{
-        let container = document.getElementById("buttons-div");
-        if(container){
+        if(this._container){
             const cvs = this._scene.getEngine().getRenderingCanvas();
-            container.style.zIndex = String(Number(cvs!.style.zIndex)+1);
+            this._container.style.zIndex = String(Number(cvs!.style.zIndex)+1);
             for (let index = 0; index < buttons.length; index++) {
                 const element = buttons[index];
 
@@ -132,8 +142,22 @@ export class V_CameraGuide extends AbstractViewPlugin<typeof TV_CameraGuideCfg>{
 
                 this._buttons.push(button);
 
-                container.appendChild(div);
+                this._container.appendChild(div);
             }
         }
+    }
+    private generateDescs():void{
+        const cvs = this._scene.getEngine().getRenderingCanvas();
+        this._cfg.buttons.forEach((b)=>{
+            const div  = document.createElement('div') as HTMLDivElement;
+            div.style.zIndex = String(Number(cvs!.style.zIndex)+2);
+            div.style.opacity = '0';
+            div.style.transition = 'opacity 1s ease-in-out';
+            div.append(b.desc);
+            div.style.position = 'absolute';
+            div.style.width = '100%';
+            this._descMap.set(b.id,div);
+            this._textContainer?.appendChild(div);
+        })
     }
 }
