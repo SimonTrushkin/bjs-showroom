@@ -136,7 +136,7 @@ export class V_CameraGuide extends AbstractViewPlugin<typeof TV_CameraGuideCfg>{
                 var div = document.createElement("div");
                 var button = document.createElement("button");
 
-                button.append(element.id);
+                button.append(element.text);
                 button.id = element.id;
                 div.appendChild(button);
 
