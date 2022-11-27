@@ -36,6 +36,16 @@ const commonPlugins = [
         chunks:['skeleton'],
         inject:true,
         scriptLoading:'defer'
+    }),
+    new HtmlWebPackPlugin({
+        template:'./src/routes/anatomy/index.html',
+        filename:'anatomy/index.html',
+        publicPath:'/',
+        minify:true,
+        alwaysWriteToDisk: true,
+        chunks:['anatomy'],
+        inject:true,
+        scriptLoading:'defer'
     })
 ]
 
@@ -61,6 +71,10 @@ const config = {
         "skeleton":{
             import   :'./src/routes/skeleton/index.ts',
             filename :'skeleton/js/index.js'
+        },
+        "anatomy":{
+            import   :'./src/routes/anatomy/index.ts',
+            filename :'anatomy/js/index.js'
         }
     },
     output: {   // выход
