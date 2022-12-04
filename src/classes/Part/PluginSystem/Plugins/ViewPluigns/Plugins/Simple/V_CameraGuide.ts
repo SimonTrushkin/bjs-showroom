@@ -66,7 +66,13 @@ export class V_CameraGuide extends AbstractViewPlugin<typeof TV_CameraGuideCfg>{
                 this._descMap.forEach((value)=>{
                     value.style.opacity = '0';
                 })
-                if(this._descMap.get(bb.id)) this._descMap.get(bb.id)!.style.opacity = '1';
+                if(this._descMap.get(bb.id))
+                {
+                    this._descMap.get(bb.id)!.style.opacity = '1';
+
+                    let div = (this._descMap.get(bb.id)!.parentElement as HTMLDivElement);
+                    div.style.height = this._descMap.get(bb.id)!.clientHeight + 30 + 'px';
+                }
             })
         })
 
@@ -155,7 +161,7 @@ export class V_CameraGuide extends AbstractViewPlugin<typeof TV_CameraGuideCfg>{
             div.style.transition = 'opacity 1s ease-in-out';
             div.append(b.desc);
             div.style.position = 'absolute';
-            div.style.width = '100%';
+            //div.style.width = '100%';
             this._descMap.set(b.id,div);
             this._textContainer?.appendChild(div);
         })
