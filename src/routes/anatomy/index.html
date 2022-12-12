@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <style>
-        .textDiv{
+        .textDiv {
             color: white;
             font-family: 'Montserrat', sans-serif;
             font-size: 2rem;
@@ -20,8 +20,7 @@
             position: relative;
             transition: height 1s ease-in-out 0s;
         }
-        .button-container
-        {
+        .button-container {
             color: white;
             position: fixed;
             right: 0;
@@ -58,8 +57,22 @@
             transition: .5s;
         }
 
-        .button-container > div> button:hover {
+        .button-container > div > button:hover {
             background: rgba(222, 207, 174, 0.9);
+        }
+
+        #route-button-div {
+            z-index: 1;
+            right: unset;
+            bottom: 0;
+            width: 100%;
+            height: unset;
+            flex-direction: row;
+        }
+
+        #route-button-div > div {
+            width: max-content;
+            transition: opacity 1s ease-in-out 0s;
         }
     </style>
     <title>Test</title>
@@ -67,5 +80,6 @@
 <body>
     <div class="button-container" id="buttons-div"></div>
     <div class="textDiv" id="text-div"></div>
+    <div class="button-container" id="route-button-div"></div>
 </body>
 </html>

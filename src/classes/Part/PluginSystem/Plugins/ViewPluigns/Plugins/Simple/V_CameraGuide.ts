@@ -25,7 +25,7 @@ const TV_CameraGuideCfg = <
             [key:string]:[string,string]
         },
         interpolationSpeed: number,
-        buttons: {id: string,text:string,desc:string}[],
+        buttons: {id: string,text:string,href:string,desc:string}[],
         buttonsContainerId: string
     }&TViewPluginCfg
 >{
@@ -44,13 +44,16 @@ export class V_CameraGuide extends AbstractViewPlugin<typeof TV_CameraGuideCfg>{
     private _activeTarget   : Vector3;
     private _buttons        : HTMLButtonElement[] = [];
     private _descMap        : Map<string,HTMLDivElement> = new Map<string, HTMLDivElement>();
+    private _routeButton    : HTMLButtonElement | null;
     private _container: HTMLElement | null;
     private _textContainer: HTMLElement | null;
+    private _routeButtonContainer: HTMLElement | null;
 
     async build() {
 
         this._container = document.getElementById("buttons-div");
         this._textContainer = document.getElementById("text-div");
+        this._routeButtonContainer = document.getElementById("route-button-div");
 
         this.setActivePoint(Object.keys(this._cfg.points)[0]);
         this.getNecessaries();
@@ -60,6 +63,7 @@ export class V_CameraGuide extends AbstractViewPlugin<typeof TV_CameraGuideCfg>{
             this._cfg.buttons
         );
         this.generateDescs();
+        this.generateRouteButton();
         this._buttons.forEach((bb)=>{
             bb.addEventListener('click',()=>{
                 this.setActivePoint(bb.id);
@@ -68,6 +72,20 @@ export class V_CameraGuide extends AbstractViewPlugin<typeof TV_CameraGuideCfg>{
                 })
                 if(this._descMap.get(bb.id))
                 {
+                    if (this._routeButton)
+                    {
+                        this._routeButton.style.opacity = '1';
+                        let href = bb.getAttribute("href");
+                        if (href !== null && href !== "undefined")
+                        {
+                            this._routeButton.setAttribute("href", href);
+                        }
+                        else
+                        {
+                            this._routeButton.removeAttribute("href");
+                        }
+                    }
+
                     this._descMap.get(bb.id)!.style.opacity = '1';
 
                     let div = (this._descMap.get(bb.id)!.parentElement as HTMLDivElement);
@@ -75,6 +93,14 @@ export class V_CameraGuide extends AbstractViewPlugin<typeof TV_CameraGuideCfg>{
                 }
             })
         })
+
+        this._routeButton?.addEventListener('click', () => {
+            let href = this._routeButton?.getAttribute("href");
+            if (href !== null && href !== "undefined" && href !== undefined)
+            {
+                document.location.href = href;
+            }
+        });
 
         //@ts-ignore
         window.cameraGuide = this;
@@ -132,7 +158,7 @@ export class V_CameraGuide extends AbstractViewPlugin<typeof TV_CameraGuideCfg>{
         }
     }
 
-    private generateButtons(buttons:{id:string,text:string}[]):void{
+    private generateButtons(buttons:{id:string,text:string,href:string}[]):void{
         if(this._container){
             const cvs = this._scene.getEngine().getRenderingCanvas();
             this._container.style.zIndex = String(Number(cvs!.style.zIndex)+1);
@@ -144,6 +170,7 @@ export class V_CameraGuide extends AbstractViewPlugin<typeof TV_CameraGuideCfg>{
 
                 button.append(element.text);
                 button.id = element.id;
+                button.setAttribute("href", element.href);
                 div.appendChild(button);
 
                 this._buttons.push(button);
@@ -152,18 +179,43 @@ export class V_CameraGuide extends AbstractViewPlugin<typeof TV_CameraGuideCfg>{
             }
         }
     }
+
     private generateDescs():void{
-        const cvs = this._scene.getEngine().getRenderingCanvas();
-        this._cfg.buttons.forEach((b)=>{
-            const div  = document.createElement('div') as HTMLDivElement;
-            div.style.zIndex = String(Number(cvs!.style.zIndex)+2);
-            div.style.opacity = '0';
-            div.style.transition = 'opacity 1s ease-in-out';
-            div.append(b.desc);
-            div.style.position = 'absolute';
-            //div.style.width = '100%';
-            this._descMap.set(b.id,div);
-            this._textContainer?.appendChild(div);
-        })
+        if (this._textContainer)
+        {
+            const cvs = this._scene.getEngine().getRenderingCanvas();
+            this._textContainer.style.zIndex = String(Number(cvs!.style.zIndex)+1);
+            this._cfg.buttons.forEach((b)=>{
+                const div  = document.createElement('div') as HTMLDivElement;
+                div.style.zIndex = String(Number(cvs!.style.zIndex)+2);
+                div.style.opacity = '0';
+                div.style.transition = 'opacity 1s ease-in-out';
+                div.append(b.desc);
+                div.style.position = 'absolute';
+                //div.style.width = '100%';
+                this._descMap.set(b.id,div);
+                this._textContainer?.appendChild(div);
+            })
+        }
+    }
+
+    private generateRouteButton():void{
+        if (this._routeButtonContainer)
+        {
+            const cvs = this._scene.getEngine().getRenderingCanvas();
+            this._routeButtonContainer.style.zIndex = String(Number(cvs!.style.zIndex)+1);
+
+            var div = document.createElement("div");
+            var button = document.createElement("button");
+
+            button.append("Детальный осмотр");
+            button.style.opacity = '0';
+            //button.id = element.id;
+            div.appendChild(button);
+
+            this._routeButton = button;
+
+            this._routeButtonContainer.appendChild(div);
+        }
     }
 }
