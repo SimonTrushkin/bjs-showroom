@@ -4,9 +4,21 @@
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <style>
-        body {
+        .textDiv {
             color: white;
             font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            padding-left: 20px;
+
+            width: 25vw;
+            height: 0px;
+            background-color: #16487485;
+            border-radius: 1%;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            z-index: 2;
+            position: relative;
+            transition: height 1s ease-in-out 0s;
         }
 
         .button-container
@@ -48,10 +60,30 @@
         .button-container > div> button:hover {
             background: rgba(222, 207, 174, 0.9);
         }
+
+        #route-button-div {
+            z-index: 1;
+            right: unset;
+            bottom: 0;
+            width: 100%;
+            height: unset;
+            flex-direction: row;
+        }
+
+        #route-button-div > div {
+            width: max-content;
+            transition: opacity 1s ease-in-out 0s;
+        }
     </style>
     <title>Test</title>
 </head>
 <body>
     <div class="button-container" id="buttons-div"></div>
+    <div class="textDiv" id="text-div"></div>
+    <div class="button-container" id="route-button-div">
+        <div>
+            <button style="opacity: 1;" id="route-button">Назад</button>
+        </div>
+    </div>
 </body>
 </html>

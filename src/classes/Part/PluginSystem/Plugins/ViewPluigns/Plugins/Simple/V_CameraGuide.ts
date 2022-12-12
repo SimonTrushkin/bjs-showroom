@@ -47,13 +47,13 @@ export class V_CameraGuide extends AbstractViewPlugin<typeof TV_CameraGuideCfg>{
     private _routeButton    : HTMLButtonElement | null;
     private _container: HTMLElement | null;
     private _textContainer: HTMLElement | null;
-    private _routeButtonContainer: HTMLElement | null;
 
     async build() {
 
         this._container = document.getElementById("buttons-div");
         this._textContainer = document.getElementById("text-div");
-        this._routeButtonContainer = document.getElementById("route-button-div");
+        this._routeButton = (document.getElementById("route-button") as HTMLButtonElement);
+        this._routeButton.style.zIndex = '1';
 
         this.setActivePoint(Object.keys(this._cfg.points)[0]);
         this.getNecessaries();
@@ -63,7 +63,6 @@ export class V_CameraGuide extends AbstractViewPlugin<typeof TV_CameraGuideCfg>{
             this._cfg.buttons
         );
         this.generateDescs();
-        this.generateRouteButton();
         this._buttons.forEach((bb)=>{
             bb.addEventListener('click',()=>{
                 this.setActivePoint(bb.id);
@@ -197,26 +196,6 @@ export class V_CameraGuide extends AbstractViewPlugin<typeof TV_CameraGuideCfg>{
                 this._descMap.set(b.id,div);
                 this._textContainer?.appendChild(div);
             })
-        }
-    }
-
-    private generateRouteButton():void{
-        if (this._routeButtonContainer)
-        {
-            const cvs = this._scene.getEngine().getRenderingCanvas();
-            this._routeButtonContainer.style.zIndex = String(Number(cvs!.style.zIndex)+1);
-
-            var div = document.createElement("div");
-            var button = document.createElement("button");
-
-            button.append("Детальный осмотр");
-            button.style.opacity = '0';
-            //button.id = element.id;
-            div.appendChild(button);
-
-            this._routeButton = button;
-
-            this._routeButtonContainer.appendChild(div);
         }
     }
 }
