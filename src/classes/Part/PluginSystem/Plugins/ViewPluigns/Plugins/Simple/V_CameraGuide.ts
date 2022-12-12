@@ -74,14 +74,15 @@ export class V_CameraGuide extends AbstractViewPlugin<typeof TV_CameraGuideCfg>{
                 {
                     if (this._routeButton)
                     {
-                        this._routeButton.style.opacity = '1';
                         let href = bb.getAttribute("href");
                         if (href !== null && href !== "undefined")
                         {
+                            this._routeButton.style.opacity = '1';
                             this._routeButton.setAttribute("href", href);
                         }
                         else
                         {
+                            this._routeButton.style.opacity = '0';
                             this._routeButton.removeAttribute("href");
                         }
                     }
